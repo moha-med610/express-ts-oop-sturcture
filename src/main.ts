@@ -1,10 +1,15 @@
-import express from 'express';
+import express, {
+    Application,
+    Request,
+    Response,
+    NextFunction
+} from 'express';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 export class App {
-    public app: express.Application;
+    public app: Application;
 
     constructor() {
         this.app = express();
@@ -22,7 +27,7 @@ export class App {
     }
 
     public errorHandling() {
-        this.app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+        this.app.use((err: any, req: Request, res: Response, next: NextFunction) => {
             res.status(500).send('Something broke!');
         });
     }
