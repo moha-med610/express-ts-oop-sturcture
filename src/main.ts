@@ -13,6 +13,10 @@ export class App {
 
     constructor() {
         this.app = express();
+
+        this.middleware();
+        this.routes();
+        this.errorHandling();
     }
 
     public middleware() {
@@ -21,14 +25,14 @@ export class App {
     }
 
     public routes() {
-        this.app.use('/', (req, res) => {
-            res.send('Hello World!');
+        this.app.get('/', (req, res) => {
+            res.json({ message: 'Hello World!' });
         });
     }
 
     public errorHandling() {
         this.app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-            res.status(500).send('Something broke!');
+            res.status(500).send('Something Went Wrong!');
         });
     }
 }
