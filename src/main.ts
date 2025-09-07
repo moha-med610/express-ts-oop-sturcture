@@ -5,14 +5,17 @@ import express, {
     NextFunction
 } from 'express';
 import dotenv from 'dotenv';
+import { PrayerTimeRoutes } from './routes/prayerTime.routes.js';
 
 dotenv.config();
 
 export class App {
     public app: Application;
+    private prayerTimeRoutes: PrayerTimeRoutes;
 
     constructor() {
         this.app = express();
+        this.prayerTimeRoutes = new PrayerTimeRoutes();
 
         this.middleware();
         this.routes();
@@ -25,9 +28,7 @@ export class App {
     }
 
     public routes() {
-        this.app.get('/', (req, res) => {
-            res.json({ message: 'Hello World!' });
-        });
+        this.app.use('/api', this.prayerTimeRoutes.router);
     }
 
     public errorHandling() {
