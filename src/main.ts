@@ -5,17 +5,14 @@ import express, {
     NextFunction
 } from 'express';
 import dotenv from 'dotenv';
-import { PrayerTimeRoutes } from './routes/prayerTime.routes.js';
 
 dotenv.config();
 
 export class App {
     public app: Application;
-    private prayerTimeRoutes: PrayerTimeRoutes;
 
     constructor() {
         this.app = express();
-        this.prayerTimeRoutes = new PrayerTimeRoutes();
 
         this.middleware();
         this.routes();
@@ -28,12 +25,14 @@ export class App {
     }
 
     public routes() {
-        this.app.use('/api', this.prayerTimeRoutes.router);
+        this.app.get('/', (req, res) => {
+            res.json({ message: 'Hello World!' });
+        });
     }
 
     public errorHandling() {
         this.app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-            res.status(500).send('Something Went Wrong!');
+            res.status(500).json({ message: 'Something Went Wrong!', error: err.message });
         });
     }
 }
