@@ -7,3 +7,7 @@ npm run build
 
 npm run dev:watch
 npm run dev
+
+to deploy your project to new repo:
+rm -rf .git 
+git init
